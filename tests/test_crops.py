@@ -1,11 +1,18 @@
 import unittest
+
 from models.crop import Crop
+from models.field import Field
+from models.weather import Weather
 class CropsTest(unittest.TestCase):
     def test_growth(self):
-        crop_1 = Crop("Crop1")
-        self.assertEqual(crop_1._height,0.0)
-        crop_1.next()
-        self.assertEqual(crop_1._height,1.0)
+        field_1 = Field()
+        crop_1 = Crop("Crop1", field_1)
+        self.assertEqual(crop_1.height,0.0)
+        crop_1.grow(Weather())
+        self.assertEqual(crop_1.height,0.002)
+        self.assertNotEqual(field_1.water_density,1.0)
 
-    def test_growth_2(self):
-        self.assertTrue(True)
+
+if __name__ == "__main__":
+    unittest.main()
+

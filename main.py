@@ -1,7 +1,12 @@
 from models.crop import Crop
-crop1 = Crop("crop1")
-crop2 = Crop("crop2")
-print(crop1)
-#print(crop1.__repr22__())
-print(crop2)
-#print(crop2.__repr22__())
+
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return "Hello world !"
+
+if __name__ == "__main__":
+    app.run()
