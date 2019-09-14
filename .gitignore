@@ -1,0 +1,5 @@
+models/__pycache__/__init__.cpython-37.pyc
+models/__pycache__/crop.cpython-37.pyc
+models/__pycache__/field.cpython-37.pyc
+models/__pycache__/weather.cpython-37.pyc
+tests/__pycache__/test_crops.cpython-37.pyc
