@@ -24,8 +24,13 @@ class Crop:
             grow_volume += (math.pi * ((self.diameter + 0.001) / 2.0) ** 2.0) * 0.002
             self.field.water_density -= grow_volume
 
-            self.diameter += 0.001
-            self.height += 0.002
+            
+            if self.height == 0.0:
+                self.height = 0.002
+                self.diameter = 0.001
+            else:
+                self.height *= 1.01
+                self.diameter *= 1.01
 
     def __repr__(self):
         return "<Crop "+self.name+" ("+str(hex(id(self)))+"), height="+str(self.height)+">"

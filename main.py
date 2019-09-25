@@ -10,11 +10,12 @@ def index():
     field_1 = Field()
     crop_1 = Crop("Crop1", field_1)
     weather = Weather()
-    data = []
+    data = {}
+    crop_data = []
     for i in range(365):
         crop_1.grow(weather)
-        data.append({"y":crop_1.height})
-        
+        crop_data.append({"height":crop_1.height, "diameter":crop_1.diameter})
+    data["crop"] = crop_data    
     return render_template("test.html", dataset = data)
 
 if __name__ == "__main__":
