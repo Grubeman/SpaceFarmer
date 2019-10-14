@@ -1,36 +1,19 @@
 import math
 
 class Crop:
-    _STAGES = [
-        "GERMINATION",
-        "CROISSANCE",
-    ]
-    
-    def __init__(self, name, field):
+    def __init__(self, seed, field):
+        self.set_seed(seed)
+        self.field = field
         self.height = 0.0
         self.diameter = 0.0
         self.density = 1.0
-        self.name = name
-        self.field = field
         self.stage = 0
-        
+
+    def set_seed(self, seed):
+        self.seed = seed
+
     def grow(self, weather):
-        if self.stage == 0:
-            if weather.temperature >= 15:
-                self.stage = 1
-        if self.stage == 1:
-
-            grow_volume = (math.pi * ((self.diameter + 0.001) / 2.0) ** 2.0) * self.height - (math.pi * (self.diameter / 2.0) ** 2.0) * self.height
-            grow_volume += (math.pi * ((self.diameter + 0.001) / 2.0) ** 2.0) * 0.002
-            self.field.water_density -= grow_volume
-
-            
-            if self.height == 0.0:
-                self.height = 0.002
-                self.diameter = 0.001
-            else:
-                self.height *= 1.01
-                self.diameter *= 1.01
+        self.seed.grow(self, weather)
 
     def __repr__(self):
-        return "<Crop "+self.name+" ("+str(hex(id(self)))+"), height="+str(self.height)+">"
+        return "<Crop "+self.seed.name+" ("+str(hex(id(self)))+"), height="+str(self.seed.height)+">"
