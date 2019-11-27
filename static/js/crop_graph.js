@@ -1,8 +1,10 @@
 var draw_crop_graph = function (svg, crop_data, prop) {
     var max = d3.max(crop_data, function(d) { return +d[prop];} );
-
+    var min = d3.min(crop_data, function(d) { return +d[prop];} );
+    console.log(min);
+    console.log(max)
     let yScale = d3.scaleLinear()
-    .domain([0, max]) // input 
+    .domain([min, max]) // input 
     .range([height, 0]); // output 
 
     // 7. d3's line generator
@@ -20,6 +22,7 @@ svg.append("g")
 // 4. Call the y axis in a group tag
 svg.append("g")
 .attr("class", "y axis")
+.attr("transform", "translate(0,-" + yScale(min) + ")")
 .call(d3.axisLeft(yScale)); // Create an axis component with d3.axisLeft
 
 // 9. Append the path, bind the data, and call the line generator 

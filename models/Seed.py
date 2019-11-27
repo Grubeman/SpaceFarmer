@@ -4,13 +4,15 @@ class Seed:
     _STAGES = [
         "GERMINATION",
         "CROISSANCE",
+        "MATURATION",
+        "POURRISSEMENT"
     ]
     
 
     @staticmethod
     def grow(crop, weather):
         if crop.stage == 0:
-            if weather.temperature >= 15:
+            if weather["temperature"] >= 15:
                 crop.stage = 1
         if crop.stage == 1:
 
