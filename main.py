@@ -1,3 +1,4 @@
+from models.BaseItems import Point
 from models.crop import Crop
 from models.field import Field
 from models.Seed import Seed
@@ -24,7 +25,21 @@ def index():
 
 @app.route('/map')
 def draw_map():
-    return render_template("map.jinja")
+    point1 = Point(0,0,0)
+    point2 = Point(50,0,0)
+    point3 = Point(50,50,0)
+    point4 = Point(0,50,0)
+    myField = Field()
+    myField._vertices.append(point1)
+    myField._vertices.append(point2)
+    myField._vertices.append(point3)
+    myField._vertices.append(point4)
+
+    map_data = [myField.to_json()]
+
+
+
+    return render_template("map.jinja", map_data = map_data)
 
 if __name__ == "__main__":
     app.run()
