@@ -1,0 +1,6 @@
+CREATE TABLE point (
+    id TEXT PRIMARY KEY,
+    x REAL NOT NULL,
+    y REAL NOT NULL,
+    z REAL NOT NULL
+);

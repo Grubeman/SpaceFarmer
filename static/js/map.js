@@ -11,39 +11,42 @@ var svg = d3.select("svg")
 var scaleX = d3.scaleLinear().range([0, width]);
 var scaleY = d3.scaleLinear().range([height, 0]);
 
-scaleX.domain([0, 50]);
+scaleX.domain([0, 100]);
 scaleY.domain([0, 50]);
 
 var point = {"x": 24, "y": 31}
-
-// var poly = [{
-//               "name": "polygon 1",
-//               "points":[
-//                 {"x":0.0, "y":25.0},
-//                 {"x":8.5,"y":23.4},
-//                 {"x":13.0,"y":21.0},
-//                 {"x":19.0,"y":15.5}
-//               ]
-//             },
-//             {
-//               "name": "polygon 2",
-//               "points":[
-//                 {"x":0.0, "y":50.0},
-//                 {"x":15.5,"y":23.4},
-//                 {"x":18.0,"y":30.0},
-//                 {"x":20.0,"y":16.5}
-//               ]
-//             }];
   
-    svg.selectAll("polygon")
-    .data(map_data)
+    svg.selectAll(".field")
+    .data(map_data.fields)
     .enter().append("polygon")
+    .attr("class", "field")
     .attr("points",function(d) { 
           return d.points.map(function(d) { 
-            console.log("test")
             return [scaleX(d.x),scaleY(d.y)].join(","); }).join(" ");})
-      .attr("stroke","black")
-      .attr("stroke-width",2); 
+      .style("stroke","black")
+      .style("fill","grey")
+      .style("stroke-width",2); 
+      
+      svg.selectAll(".road")
+      .data(map_data.roads)
+      .enter().append("polygon")
+      .attr("class", "road")
+      .attr("points",function(d) { 
+            return d.segments.map(function(d) { 
+              return [scaleX(d[0].x),scaleY(d[0].y)].join(",") +" "+[scaleX(d[1].x),scaleY(d[1].y)].join(","); }).join(" ");})
+        .style("stroke","yellow")
+        .style("stroke-width",7); 
+
+        svg.selectAll(".road_center")
+        .data(map_data.roads)
+        .enter().append("polygon")
+        .attr("class", "road_center")
+        .attr("points",function(d) { 
+              return d.segments.map(function(d) { 
+                return [scaleX(d[0].x),scaleY(d[0].y)].join(",") +" "+[scaleX(d[1].x),scaleY(d[1].y)].join(","); }).join(" ");})
+          .style("stroke","black")
+          .style("stroke-dasharray", "5, 3") 
+          .style("stroke-width",1); 
 
   svg.append("circle")
     .attr("r", 4)

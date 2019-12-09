@@ -12,9 +12,16 @@ class Segment:
         self._start = start
         self._end = end   
 
+    def to_json(self):
+        return [self._start.to_json(), self._end.to_json()]
+
 class Line:
     def __init__(self):
         self._segments = []  
+
+    def to_json(self):
+        segments = [s.to_json() for s in self._segments]
+        return {"segments": segments}
 
 class Surface:
     def __init__(self):
