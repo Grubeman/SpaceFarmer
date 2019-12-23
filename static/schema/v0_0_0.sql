@@ -5,6 +5,32 @@ CREATE TABLE point (
     z REAL NOT NULL
 );
 
+CREATE TABLE parcel (
+    id TEXT PRIMARY KEY
+);
+
+CREATE TABLE parcel_vertices (
+    parcel TEXT,
+    point TEXT,
+    index INTEGER
+);
+
+CREATE TABLE road_segment (
+    id TEXT PRIMARY KEY,
+    start TEXT,
+    end TEXT
+);
+
+CREATE TABLE road (
+    id TEXT PRIMARY KEY
+);
+
+CREATE TABLE road_segments (
+    road TEXT,
+    segment TEXT,
+    index INTEGER
+);
+
 CREATE TABLE DBVersion (
     version TEXT PRIMARY KEY,
     comments TEXT NOT NULL

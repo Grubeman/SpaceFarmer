@@ -133,7 +133,7 @@ class DBManager:
 
         for table_column in res:
             column_data[table_column[1]] = table_column[2]
-        with open(filename, newline='') as csvfile:
+        with open(filename, newline='', encoding='utf-8-sig') as csvfile:
            reader = csv.DictReader(csvfile, delimiter=";")
            for row in reader:
                 columns = []
@@ -148,6 +148,8 @@ class DBManager:
                     column_type = column_data[k]
                     if column_type == 'TEXT':
                         v = "'" + v + "'"
+                    elif column_type == 'REAL':
+                        v = str(float(v)) 
                     else:
                         raise NotImplementedError("Unknowned column type "+column_type) 
                     values.append(v)
