@@ -10,17 +10,17 @@ CREATE TABLE parcel (
 );
 
 CREATE TABLE parcel_vertices (
-    parcel TEXT,
-    vertex TEXT,
-    idx REAL NOT NULL,
+    parcel TEXT NOT NULL,
+    vertex TEXT NOT NULL,
+    idx INTEGER NOT NULL,
     FOREIGN KEY(vertex) REFERENCES vertex(id),
     FOREIGN KEY(parcel) REFERENCES parcel(id)   
 );
 
 CREATE TABLE road_segments (
-    road TEXT,
-    segment TEXT,
-    idx REAL NOT NULL,
+    road TEXT NOT NULL,
+    segment TEXT NOT NULL,
+    idx INTEGER NOT NULL,
     FOREIGN KEY(road) REFERENCES road(id),
     FOREIGN KEY(segment) REFERENCES road_segment(id)
 );
@@ -28,8 +28,8 @@ CREATE TABLE road_segments (
 
 CREATE TABLE road_segment (
     id TEXT PRIMARY KEY,
-    vstart TEXT,
-    vend TEXT,
+    vstart TEXT NOT NULL,
+    vend TEXT NOT NULL,
     FOREIGN KEY(vstart) REFERENCES vertex(id),
     FOREIGN KEY(vend) REFERENCES vertex(id)
 );

@@ -7,7 +7,10 @@ from models.field import Field
 from models.TransportItems import Road, RoadSegment
 from models.Seed import Seed
 from models.weather import Weather
-from SharedData import WORLD_DB
+from models.World import World
+
+from utilities.WorldDB import WorldDB
+from SharedData import WORLD_DB_PATH
 
 app = Flask(__name__)
 
@@ -29,30 +32,24 @@ def index():
 
 @app.route('/map')
 def draw_map():
-    point1 = Point(0,0,0)
+
+    world = World()
+
+    world_db = WorldDB(WORLD_DB_PATH)
+    world.build_from_db(world_db)
+    world_db.close()
+
+    print(world.vertices)
+
     point2 = Point(50,0,0)
     point3 = Point(50,50,0)
-    point4 = Point(0,50,0)
-    point5 = Point(100,0,0)
-    point6 = Point(100,50,0)
-    myField = Field()
-    myField._vertices.append(point1)
-    myField._vertices.append(point2)
-    myField._vertices.append(point3)
-    myField._vertices.append(point4)
-
-    myField2 = Field()
-    myField2._vertices.append(point2)
-    myField2._vertices.append(point5)
-    myField2._vertices.append(point6)
-    myField2._vertices.append(point3)
 
     road = Road()
     road._segments.append(RoadSegment(point2, point3))
 
 
     print(road.to_json())
-    map_data = {"fields": [myField.to_json(), myField2.to_json()], "roads": [road.to_json()]}
+    map_data = {"fields": [parcel.to_json() for parcel in world.parcels.values()], "roads": [road.to_json()]}
 
 
 
