@@ -13,7 +13,7 @@ class DBManager:
         if DBManager.isSQLite3(db_path):
             self.connect()
         else:
-            self.create_db(os.path.join(__MODULEDIR__, "static", "schema", "v0_0_0.sql"))
+            self.create_db(os.path.join(__MODULEDIR__,"..", "static", "schema", "v0_0_0.sql"))
         
     def create_db(self, schema_path=None):
 
@@ -149,7 +149,9 @@ class DBManager:
                     if column_type == 'TEXT':
                         v = "'" + v + "'"
                     elif column_type == 'REAL':
-                        v = str(float(v)) 
+                        v = str(float(v))      
+                    elif column_type == 'INTEGER':
+                        v = str(int(v)) 
                     else:
                         raise NotImplementedError("Unknowned column type "+column_type) 
                     values.append(v)

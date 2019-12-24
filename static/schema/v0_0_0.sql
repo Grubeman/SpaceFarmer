@@ -1,4 +1,4 @@
-CREATE TABLE point (
+CREATE TABLE vertex (
     id TEXT PRIMARY KEY,
     x REAL NOT NULL,
     y REAL NOT NULL,
@@ -11,24 +11,31 @@ CREATE TABLE parcel (
 
 CREATE TABLE parcel_vertices (
     parcel TEXT,
-    point TEXT,
-    index INTEGER
-);
-
-CREATE TABLE road_segment (
-    id TEXT PRIMARY KEY,
-    start TEXT,
-    end TEXT
-);
-
-CREATE TABLE road (
-    id TEXT PRIMARY KEY
+    vertex TEXT,
+    idx REAL NOT NULL,
+    FOREIGN KEY(vertex) REFERENCES vertex(id),
+    FOREIGN KEY(parcel) REFERENCES parcel(id)   
 );
 
 CREATE TABLE road_segments (
     road TEXT,
     segment TEXT,
-    index INTEGER
+    idx REAL NOT NULL,
+    FOREIGN KEY(road) REFERENCES road(id),
+    FOREIGN KEY(segment) REFERENCES road_segment(id)
+);
+
+
+CREATE TABLE road_segment (
+    id TEXT PRIMARY KEY,
+    vstart TEXT,
+    vend TEXT,
+    FOREIGN KEY(vstart) REFERENCES vertex(id),
+    FOREIGN KEY(vend) REFERENCES vertex(id)
+);
+
+CREATE TABLE road (
+    id TEXT PRIMARY KEY
 );
 
 CREATE TABLE DBVersion (
