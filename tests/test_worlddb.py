@@ -17,4 +17,4 @@ class DBManagerTest(unittest.TestCase):
         db = WorldDB(self.db_path)
         db.populate_world_from_csv(INPUTS)
 if __name__ == "__main__":
-    unittest.main()Z
+    unittest.main()
